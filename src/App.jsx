@@ -508,7 +508,7 @@ export default function App() {
 
   useEffect(() => {
     const t1 = setTimeout(() => setHeaderVis(true), 50);
-    const t2 = setTimeout(() => setPageVis(true), 4800);
+    const t2 = setTimeout(() => setPageVis(true), 9000);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
@@ -549,7 +549,7 @@ export default function App() {
     rest.forEach((_, i) => {
       setTimeout(() => {
         setRowVis((v) => [...v, i]);
-      }, 4200 + i * 120);
+      }, 6500 + i * 500);
     });
   }, [data]);
 
@@ -655,7 +655,7 @@ export default function App() {
             // Mobile order: gold(0ms), silver(2000ms), bronze(3000ms)
             <div style={{ maxWidth:980, margin:"0 auto 32px", display:"flex", flexDirection:"column", gap:12 }}>
               {mobileOrder.map((p, i) => {
-                const mobileDelays = [0, 2000, 3000];
+                const mobileDelays = [500, 3000, 6000];
                 return <PodiumCardMobile key={p.name} p={p} delay={mobileDelays[i]} />;
               })}
             </div>
@@ -663,7 +663,7 @@ export default function App() {
             // Desktop order: [silver, gold, bronze] → delays [2000, 0, 3000]
             <div style={{ maxWidth:980, margin:"0 auto 40px", display:"flex", gap:14, alignItems:"flex-end" }}>
               {desktopOrder.map((p, i) => {
-                const desktopDelays = [2000, 0, 3000];
+                const desktopDelays = [3000, 500, 6000];
                 return <PodiumCardDesktop key={p.name} p={p} podiumPos={i} delay={desktopDelays[i]} />;
               })}
             </div>
