@@ -292,9 +292,7 @@ function PodiumCardDesktop({ p, podiumPos, delay }) {
           overflow:"hidden",
           opacity: vis ? 1 : 0,
           transform: vis ? (hovered ? "translateY(-7px) scale(1.03)" : "translateY(0) scale(1)") : "translateY(24px) scale(0.97)",
-          transition: vis
-            ? `opacity ${isGold ? "1.4s" : "0.9s"} ease, transform 0.28s ease, box-shadow 0.28s ease`
-            : `opacity ${isGold ? "1.4s" : "0.9s"} ease, transform ${isGold ? "1.4s" : "0.9s"} ease`,
+          transition: vis ? "opacity 0.55s ease, transform 0.28s ease, box-shadow 0.28s ease" : "opacity 0.55s ease, transform 0.55s ease",
           boxShadow: hovered ? `0 20px 52px ${m.accent}50` : isGold ? `0 8px 32px ${m.accent}28` : `0 4px 16px ${m.accent}18`,
           cursor:"default"
         }}
@@ -502,15 +500,7 @@ function PodiumCardMobile({ p, delay }) {
 export default function App() {
   const [data, setData] = useState([]);
   const [rowVis, setRowVis] = useState([]);
-  const [headerVis, setHeaderVis] = useState(false);
-  const [pageVis, setPageVis] = useState(false);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setHeaderVis(true), 50);
-    const t2 = setTimeout(() => setPageVis(true), 9000);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
 
   useEffect(() => {
     Papa.parse("./data.csv", {
@@ -549,7 +539,7 @@ export default function App() {
     rest.forEach((_, i) => {
       setTimeout(() => {
         setRowVis((v) => [...v, i]);
-      }, 6500 + i * 500);
+      }, 1000 + i * 120);
     });
   }, [data]);
 
@@ -624,13 +614,7 @@ export default function App() {
 
       <div style={{ position:"relative", zIndex:1 }}>
         <div style={{ padding: isMobile ? "24px 16px 0" : "36px 28px 0" }}>
-          <div style={{
-            maxWidth:980, margin:"0 auto 40px", display:"flex", alignItems:"center",
-            justifyContent:"space-between", flexWrap:"wrap", gap:12,
-            opacity: headerVis ? 1 : 0,
-            transform: headerVis ? "translateY(0)" : "translateY(-18px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease"
-          }}>
+          <div style={{ maxWidth:980, margin:"0 auto 40px", display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:12 }}>
             <div style={{ display:"flex", alignItems:"center", gap: isMobile ? 12 : 18 }}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/en/8/8e/Brigade_Group.svg"
@@ -651,21 +635,14 @@ export default function App() {
               As of 1-Mar-25
             </div>
           </div>
+
           {isMobile ? (
-            // Mobile order: gold(0ms), silver(2000ms), bronze(3000ms)
             <div style={{ maxWidth:980, margin:"0 auto 32px", display:"flex", flexDirection:"column", gap:12 }}>
-              {mobileOrder.map((p, i) => {
-                const mobileDelays = [500, 3000, 6000];
-                return <PodiumCardMobile key={p.name} p={p} delay={mobileDelays[i]} />;
-              })}
+              {mobileOrder.map((p, i) => <PodiumCardMobile key={p.name} p={p} delay={i * 150} />)}
             </div>
           ) : (
-            // Desktop order: [silver, gold, bronze] → delays [2000, 0, 3000]
             <div style={{ maxWidth:980, margin:"0 auto 40px", display:"flex", gap:14, alignItems:"flex-end" }}>
-              {desktopOrder.map((p, i) => {
-                const desktopDelays = [3000, 500, 6000];
-                return <PodiumCardDesktop key={p.name} p={p} podiumPos={i} delay={desktopDelays[i]} />;
-              })}
+              {desktopOrder.map((p, i) => <PodiumCardDesktop key={p.name} p={p} podiumPos={i} delay={i * 160} />)}
             </div>
           )}
 
@@ -763,16 +740,8 @@ export default function App() {
             </div>
           </div>
 
- <div style={{
-            maxWidth:980, margin:"24px auto 0", padding:"18px 22px",
-            background:"#FFFFFF", borderRadius:10, border:"1px solid #E2E8F0",
-            fontSize:12, color:"#718096", lineHeight:1.8,
-            opacity: pageVis ? 1 : 0,
-            transform: pageVis ? "translateY(0)" : "translateY(12px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease"
-          }}>
-   
-   <p style={{ margin:0 }}>
+          <div style={{ maxWidth:980, margin:"24px auto 0", padding:"18px 22px", background:"#FFFFFF", borderRadius:10, border:"1px solid #E2E8F0", fontSize:12, color:"#718096", lineHeight:1.8 }}>
+            <p style={{ margin:0 }}>
               This dashboard is intended to provide visibility into current standings. The final scores will be consolidated and frozen at the end of each quarter.
             </p>
             <br />
@@ -796,14 +765,8 @@ export default function App() {
           <div style={{ height:32 }} />
         </div>
 
-        <div style={{
-          width:"100%", padding:"16px 28px", borderTop:"1px solid #E2E8F0",
-          textAlign:"center", background:"#F4F7FB",
-          opacity: pageVis ? 1 : 0,
-          transition: "opacity 0.6s ease 0.2s"
-        }}>
-          
-        <div style={{ fontSize:12, color:"#A0AEC0", fontWeight:500 }}>
+        <div style={{ width:"100%", padding:"16px 28px", borderTop:"1px solid #E2E8F0", textAlign:"center", background:"#F4F7FB" }}>
+          <div style={{ fontSize:12, color:"#A0AEC0", fontWeight:500 }}>
             Made with ♥ by the PropeLL team
           </div>
         </div>
