@@ -20,7 +20,7 @@ const GRID_DESKTOP = `44px 130px 90px 90px 90px 90px 90px 90px 1fr`;
 const GRID_MOBILE  = `28px 75px 54px 36px 36px 36px 36px 36px 160px`;
 
 const headersDesktop = ["Rank","Project","Overall Score","Timelines","Template Utilization","Governance","ACC Onboarding","ACC Utilization","Rationale"];
-const headersMobile  = ["#","Project","Score","TL","TU","GV","OB","UT","Rationale"];
+const headersMobile  = ["#","Project","Score","Timelines","Templates","Governance","ACC Onboarding","ACC Use","Rationale"];
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
