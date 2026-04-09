@@ -623,7 +623,7 @@ export default function App() {
               />
               <div style={{ borderLeft:`3px solid ${BRIGADE_BLUE}`, paddingLeft: isMobile ? 12 : 18 }}>
                 <div style={{ fontSize:10, fontWeight:700, letterSpacing:3, color:BRIGADE_BLUE, textTransform:"uppercase", marginBottom:3 }}>
-                  Q1 2025 · Project Performance
+                  Q1CY26 · Project Performance
                 </div>
                 <div style={{ fontSize: isMobile ? 22 : 32, fontWeight:800, color:"#0D1F35", letterSpacing:-0.5, lineHeight:1 }}>
                   PropeLL Leaderboard
@@ -632,7 +632,7 @@ export default function App() {
             </div>
 
             <div style={{ background:"#EBF4FF", color:BRIGADE_BLUE, border:`1px solid #BEE3F8`, borderRadius:8, padding:"8px 18px", fontSize:11, fontWeight:700 }}>
-              As of 1-Mar-25
+              As of 1-Apr-26
             </div>
           </div>
 
